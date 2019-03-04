@@ -2,3 +2,9 @@ venv
 .vscode
 .idea
 __pycache__
+report/*.aux
+report/*.out
+report/*.log
+report/*.fls
+report/*.fdb_latexmk
+report/*.synctex.gz

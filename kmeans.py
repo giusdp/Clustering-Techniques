@@ -1,6 +1,6 @@
-import numpy as np
 import matplotlib
-import matplotlib.cm as cm
+import numpy as np
+
 matplotlib.use('TkAgg')
 
 from matplotlib import pyplot as plt
@@ -14,8 +14,8 @@ plt.style.use('ggplot')
 def dist(a, b, ax=1):
     return np.linalg.norm(a - b, axis=ax)
 
-def kmeans_func(X, k):
 
+def kmeans_func(X, k):
     ind = np.random.choice(X.shape[0], k, replace=False)
     centroids = X[ind]
 
@@ -43,11 +43,10 @@ def kmeans_func(X, k):
     return y, centroids
 
 
-
 def kmeans_plot(X, y, k, centroids):
-
-    colors = ['r', 'g', 'b', 'y', 'c', 'm', 'w', 'k', 'orange', 'navy', 'cyan', 'crimson', 'teal', 'sienna', 'khaki', 'fuchsia']
-    #colors = cm.rainbow(np.linspace(0, 1, len(np.unique(y))))
+    colors = ['r', 'g', 'b', 'y', 'c', 'm', 'w', 'k', 'orange', 'navy', 'cyan', 'crimson', 'teal', 'sienna', 'khaki',
+              'fuchsia']
+    # colors = cm.rainbow(np.linspace(0, 1, len(np.unique(y))))
     fig, ax = plt.subplots()
 
     for i in range(k):
@@ -56,4 +55,3 @@ def kmeans_plot(X, y, k, centroids):
         ax.scatter(centroids[i, 0], centroids[i, 1], marker='*', s=300, c=colors[i])
 
     plt.show(block=False)
-

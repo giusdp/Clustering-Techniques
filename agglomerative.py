@@ -23,19 +23,12 @@ class BUClusteringWidget(QWidget):
         hbox.addWidget(blob_button)
         hbox.addWidget(self.dendrogram_button)
 
-        self.plotWidget = MplWidget()
-
         vbox = QVBoxLayout()
         vbox.addLayout(hbox)
-        vbox.addWidget(self.plotWidget)
         self.setLayout(vbox)
 
     def do_make_blobs(self):
-        self.plotWidget.set_title("Blobs of data")
-        self.current_df = create_blob_dataset(100, 3)
-        self.plotWidget.plot_data(self.current_df)
-        self.dendrogram_button.setDisabled(False)
+        pass
 
     def do_make_dendrogram(self):
-        self.plotWidget.set_title("Dendrogram")
-        self.plotWidget.draw_dendrogram(self.current_df)
+        pass

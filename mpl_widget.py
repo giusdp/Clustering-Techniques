@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QWidget, QSizePolicy, QVBoxLayout
 import matplotlib
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
+from scipy.cluster.hierarchy import dendrogram, linkage
 
 matplotlib.use('QT5Agg')
 
@@ -45,7 +46,7 @@ class MplWidget(QWidget):
         dendrogram(linkage(df, 'ward'))
 
         self.canvas.draw()
-        # self.canvas.axes.cla()
+        self.canvas.axes.cla()
 
     def set_title(self, title):
         self.canvas.axes.set_title(title)
