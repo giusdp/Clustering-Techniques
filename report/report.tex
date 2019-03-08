@@ -1,21 +1,40 @@
-\documentclass[12pt]{article}
+\documentclass{llncs}
 
 \usepackage[italian]{babel}
 \usepackage[utf8]{inputenc}
-\usepackage{hyperref}
+% \usepackage{hyperref}
 \usepackage{graphicx}
 
-\title{Tecniche di Clustering: Tests e Comparazioni}
+\usepackage{subfig}
+
+\usepackage[T1]{fontenc}
+
+%\usepackage{float}
+
 \author{Giuseppe De Palma}
-\date{}
+
+\title{Progetto Elaborazione Linguaggio Naturale: Tecniche di Clustering}
+
+\institute{Alma Mater Studiorum - Università di Bologna \\
+	\email{giuseppe.depalma@studio.unibo.it}\\
+	\email{Matricola: 854846}
+}
+
+\newcommand{\acapo}{\vspace{0.5\baselineskip}\\}
 
 \begin{document}
     \maketitle
-	\abstract{Ciaone}
+	
+	\begin{abstract}
+		Ciaone
+	\end{abstract}
 	   
 	\section{Introduzione}
-	The goal is to place similar objects in the same group and to assign dissimilar objects to different groups.
-	
+	Il \textit{clustering} (o analisi dei gruppi) è una forma di \textit{machine learning} non supervisionato che permette di raggruppare in \textit{clusters} elementi non annotati
+	dati in input. Un cluster è una collezione di oggetti ``simili'' tra loro che sono ``dissimili'' rispetto agli oggetti degli altri cluster. Questo tipo di machine learning è
+	ottimo per partizionare un insieme di dati in diverse ``categorie'', quindi poter eseguire diverse analisi ed ottenere nuove informazioni.
+	Applicazioni tipiche in cui il clustering viene molto usato è il riconoscimento di email di spam (le email a scopi pubblicitari o di frode), oppure per l'aggregazione di notizie (vedasi Google News).
+	\acapo
 	I metodi implementati e testati sono quattro:
 	\begin{itemize}
 		\item Clustering \textbf{gerarchico}
