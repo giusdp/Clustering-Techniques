@@ -1,4 +1,4 @@
-\documentclass{llncs}
+\documentclass[12pt]{llncs}
 
 \usepackage[italian]{babel}
 \usepackage[utf8]{inputenc}
@@ -36,10 +36,21 @@
 	Applicazioni tipiche in cui il clustering viene molto usato è il riconoscimento di email di spam (le email a scopi pubblicitari o di frode), oppure per l'aggregazione di notizie (vedasi Google News per un esempio).
 	\acapo
 	Il clustering trova possibili applicazioni anche nel campo dell'elaborazione del linguaggio naturale. Oltre alle nuove possibili analisi
-	sui corpora, un interessante utilizzo è quello della \textbf{generalizzazione} delle parole.
-	[SPIEGARE GENERALZZAZIONE]
+	sui corpora ed al fornire una visualizzazione pittografica delle parole raggrupate, un interessante utilizzo è quello della \textbf{generalizzazione} delle parole.
 	\acapo 
-	I metodi implementati e testati sono quattro:
+	Possiamo considerare i vari clusters delle classi di equivalenza. Per questo motivo, se avessimo un dataset su cui comporre i clusters fatto di frasi e parole, allora si potrebbe assumere che una
+	qualche parola che compare in una frase può essere sostituita con un'altra dello stesso cluster lasciando intatta la correttezza della frase. 
+	Ad esempio, se avessimo nel nostro dataset ``per Lunedì'', ``per Martedì'', ``per Mercoledì'', ``per Sabato'', ``per Domenica'', senza avere ``per Giovedì'' e ``per Vernedì'', e avessimo un cluster in cui 
+	i giorni della settimana sono raggruppati insieme, allora potremmo generalizzare l'utilizzo della preposizione ``per'' con Giovedì e Vernedì.
+	\acapo
+	Il clustering, quindi, può essere molto utile anche nell'elaborazione del linguaggio naturale. Nel progetto in studio vengono testate le capacità di alcune tecniche di clustering
+	da cui si derivano dei risultati per mostrarne le differenze, i pregi e i difetti. I dati utilizzati negli esperimenti, comunque, non sono parti di testo, ma semplici dataset di vettori numerici 2D in modo tale da poter facilmente 
+	visualizzare i grafici relativi ai clusters e determinare le caratteristiche di ogni tecnica.
+    \subsection{Outline}
+	\section{Clustering}
+	[PARLARE DELLE DUE CLASSI DI CLUSTERING E DI SOFT E HARD]
+	\acapo
+	I metodi implementati e testati sono quattro, divisi in due classi distinte:
 	\begin{itemize}
 		\item Clustering \textbf{gerarchico}
 		\begin{enumerate}
@@ -53,9 +64,6 @@
 			\item EM
 		\end{enumerate}
 	\end{itemize}
-    \subsection{Outline}
-    \section{Related Works}
-    \section{Clustering}
     \section{Sessione Sperimentale}
     \section{Conclusioni}
     
