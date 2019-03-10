@@ -46,11 +46,19 @@
 	Il clustering, quindi, può essere molto utile anche nell'elaborazione del linguaggio naturale. Nel progetto in studio vengono testate le capacità di alcune tecniche di clustering
 	da cui si derivano dei risultati per mostrarne le differenze, i pregi e i difetti. I dati utilizzati negli esperimenti, comunque, non sono parti di testo, ma semplici dataset di vettori numerici 2D in modo tale da poter facilmente 
 	visualizzare i grafici relativi ai clusters e determinare le caratteristiche di ogni tecnica.
-    \subsection{Outline}
+	\subsection{Outline}
+	[\textbf{SCRIVERE OUTLINE}]
 	\section{Clustering}
-	[PARLARE DELLE DUE CLASSI DI CLUSTERING E DI SOFT E HARD]
+	Ci sono numerosi algoritmi per effettuare clustering, ma essi sono classificabili in poche tipologie: il clustering gerarchico e il clustering partizionale.
+	Clustering partizionale consiste nel ottenere dei clusters, di solito iterativamente, ma spesso senza determinare la relazione tra gli elementi. Si inizia con un insieme di clusters iniziale ed iterativamente
+	si riassegnano gli oggetti nei clusters corretti. Il clustering gerarchico, invece, forma un albero (la gerarchia) degli elementi dove un nodo rappresenta un sotto-cluster del nodo padre e le foglie sono i singoli
+	oggetti.
 	\acapo
-	I metodi implementati e testati sono quattro, divisi in due classi distinte:
+	Un'altra importante distinzione tra gli algoritmi di clustering è il \textit{soft clustering} e \textit{hard clustering}. Nel primo caso, ogni oggetto può essere assegnato a più clusters secondo un qualche
+	grado di appartenza, mentre nel secondo caso ogni oggetto è assegnato ad un unico cluster. In questo progetto vedremo quattro diversi algoritmi, due della classe di clustering gerarchico, due del clustering partizionale.
+	I primi tre eseguono hard clustering mentre l'ultimo soft clustering.
+	\acapo
+	Di seguito sono elencati i metodi implementati e testati:
 	\begin{itemize}
 		\item Clustering \textbf{gerarchico}
 		\begin{enumerate}
@@ -61,9 +69,14 @@
 		\item Clustering \textbf{partizionale}
 		\begin{enumerate}
 			\item K-Means
-			\item EM
+			\item EM (soft clustering)
 		\end{enumerate}
 	\end{itemize}
+	
+	\subsection{Aggregativo}
+	\subsection{Divisivo}
+	\subsection{K-Means}
+	\subsection{EM}
     \section{Sessione Sperimentale}
     \section{Conclusioni}
     
