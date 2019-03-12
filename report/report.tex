@@ -1,4 +1,4 @@
-\documentclass[12pt]{llncs}
+\documentclass{llncs}
 
 \usepackage[italian]{babel}
 \usepackage[utf8]{inputenc}
@@ -30,31 +30,31 @@
 	\end{abstract}
 	   
 	\section{Introduzione}
-	Il \textit{clustering} (o analisi dei gruppi) è una forma di \textit{machine learning} non supervisionato che permette di raggruppare in \textit{clusters} elementi non annotati
+	Il \textit{clustering} (o analisi dei gruppi) è una forma di \textit{machine learning} non supervisionato che permette di raggruppare in \textit{cluster} elementi non annotati
 	dati in input. Un cluster è una collezione di oggetti ``simili'' tra loro che sono ``dissimili'' rispetto agli oggetti degli altri cluster. Questo tipo di machine learning è
 	ottimo per partizionare un insieme di dati in diverse ``categorie'', quindi poter eseguire diverse analisi ed ottenere nuove informazioni.
-	Applicazioni tipiche in cui il clustering viene molto usato è il riconoscimento di email di spam (le email a scopi pubblicitari o di frode), oppure per l'aggregazione di notizie (vedasi Google News per un esempio).
+	Applicazioni tipiche in cui il clustering viene molto usato è il riconoscimento di email di spam (le email a scopi pubblicitari o di frode), oppure per l'aggregazione di notizie (Google News ne è un esempio).
 	\acapo
 	Il clustering trova possibili applicazioni anche nel campo dell'elaborazione del linguaggio naturale. Oltre alle nuove possibili analisi
 	sui corpora ed al fornire una visualizzazione pittografica delle parole raggrupate, un interessante utilizzo è quello della \textbf{generalizzazione} delle parole.
 	\acapo 
-	Possiamo considerare i vari clusters delle classi di equivalenza. Per questo motivo, se avessimo un dataset su cui comporre i clusters fatto di frasi e parole, allora si potrebbe assumere che una
+	Possiamo considerare i vari cluster delle classi di equivalenza. Per questo motivo, se avessimo un dataset su cui comporre i cluster fatto di frasi e parole, allora si potrebbe assumere che una
 	qualche parola che compare in una frase può essere sostituita con un'altra dello stesso cluster lasciando intatta la correttezza della frase. 
 	Ad esempio, se avessimo nel nostro dataset ``per Lunedì'', ``per Martedì'', ``per Mercoledì'', ``per Sabato'', ``per Domenica'', senza avere ``per Giovedì'' e ``per Vernedì'', e avessimo un cluster in cui 
 	i giorni della settimana sono raggruppati insieme, allora potremmo generalizzare l'utilizzo della preposizione ``per'' con Giovedì e Vernedì.
 	\acapo
 	Il clustering, quindi, può essere molto utile anche nell'elaborazione del linguaggio naturale. Nel progetto in studio vengono testate le capacità di alcune tecniche di clustering
 	da cui si derivano dei risultati per mostrarne le differenze, i pregi e i difetti. I dati utilizzati negli esperimenti, comunque, non sono parti di testo, ma semplici dataset di vettori numerici 2D in modo tale da poter facilmente 
-	visualizzare i grafici relativi ai clusters e determinare le caratteristiche di ogni tecnica.
+	visualizzare i grafici relativi ai cluster e determinare le caratteristiche di ogni tecnica.
 	\subsection{Outline}
 	[\textbf{SCRIVERE OUTLINE}]
 	\section{Clustering}
 	Ci sono numerosi algoritmi per effettuare clustering, ma essi sono classificabili in poche tipologie: il clustering gerarchico e il clustering partizionale.
-	Clustering partizionale consiste nel ottenere dei clusters, di solito iterativamente, ma spesso senza determinare la relazione tra gli elementi. Si inizia con un insieme di clusters iniziale ed iterativamente
-	si riassegnano gli oggetti nei clusters corretti. Il clustering gerarchico, invece, forma un albero (la gerarchia) degli elementi dove un nodo rappresenta un sotto-cluster del nodo padre e le foglie sono i singoli
+	Clustering partizionale consiste nell'ottenere dei cluster, di solito in modo iterativo, ma spesso senza determinare una vera relazione tra gli elementi. Si inizia con un insieme di cluster iniziale ed iterativamente
+	si riassegnano gli oggetti nei giusti cluster. Il clustering gerarchico, invece, forma un albero (la gerarchia) degli elementi dove un nodo rappresenta un sotto-cluster del nodo padre e le foglie sono i singoli
 	oggetti.
 	\acapo
-	Un'altra importante distinzione tra gli algoritmi di clustering è il \textit{soft clustering} e \textit{hard clustering}. Nel primo caso, ogni oggetto può essere assegnato a più clusters secondo un qualche
+	Un'altra importante distinzione tra gli algoritmi di clustering è il \textit{soft clustering} e \textit{hard clustering}. Nel primo caso, ogni oggetto può essere assegnato a più cluster secondo un qualche
 	grado di appartenza, mentre nel secondo caso ogni oggetto è assegnato ad un unico cluster. In questo progetto vedremo quattro diversi algoritmi, due della classe di clustering gerarchico, due del clustering partizionale.
 	I primi tre eseguono hard clustering mentre l'ultimo soft clustering.
 	\acapo
@@ -62,8 +62,8 @@
 	\begin{itemize}
 		\item Clustering \textbf{gerarchico}
 		\begin{enumerate}
-			\item Aggregativo (o bottom-up)
-			\item Divisivo (o top-down)
+			\item Aggregativo
+			\item Divisivo
 		\end{enumerate}
 
 		\item Clustering \textbf{partizionale}
@@ -73,8 +73,31 @@
 		\end{enumerate}
 	\end{itemize}
 	
-	\subsection{Aggregativo}
-	\subsection{Divisivo}
+	\subsection{Gerarchico}
+	Andando più in dettaglio sulle diverse tecniche, abbiamo detto che la prima classe di clustering permette di creare degli alberi con i cluster e sotto-cluster. 
+	Questo può essere ottenuto con un approcco \textit{bottom-up} che è il clustering \textbf{aggregativo},
+	il quale inizia dai singoli oggetti e ne raggruppa i più simili, per poi raggruppare i gruppi più simili e così via, fino ad ottenere un unico gruppo
+	che sarà la radice dell'albero. Un altro approccio è quello \textit{top-down}, il clustering \textbf{divisivo}, che in modo inverso dal precedente parte 
+	dal gruppo comprendente tutti gli elementi e lo divide in sotto-gruppi in modo da massimizzare la similarità intrinseca dei gruppi, 
+	fino ad arrivare ai singoli elementi.
+
+	\subsubsection{Aggregativo}
+	Il clustering agglomerativo è un algoritmo \textbf{greedy}, che prende diversi cluster contenenti ognuno un singolo elemento e ad ogni passo
+	determina i due cluster più simili. 
+	 each step, the two most similar clusters
+	are determined (81, and merged into a new cluster (9). The algorithm
+	terminates when one large cluster containing all objects of S has been
+	formed, which then is the only remaining cluster in C (7).
+	Let us flag one possibly confusing issue. We have phrased the clus-
+	tering algorithm in terms of similarity between clusters, and therefore
+	we join things with maximum similarity (8). Sometimes people think in
+	terms of distances between clusters, and then you want to join things that
+	are the minimum distance apart. So it is easy to get confused between
+	whether you re taking maximums or minimums. It is straightforward to
+	produce a similarity measure from a distance measure d, for example by
+	sim(x,y) = l/(1 + d(x,y)).
+
+	\subsubsection{Divisivo}
 	\subsection{K-Means}
 	\subsection{EM}
     \section{Sessione Sperimentale}
