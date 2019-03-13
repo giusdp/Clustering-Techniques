@@ -14,7 +14,6 @@
 \author{Giuseppe De Palma}
 
 \title{Progetto Elaborazione Linguaggio Naturale: Tecniche di Clustering}
-
 \institute{Alma Mater Studiorum - Università di Bologna \\
 	\email{giuseppe.depalma@studio.unibo.it}\\
 	\email{Matricola: 854846}
@@ -82,24 +81,22 @@
 	fino ad arrivare ai singoli elementi.
 
 	\subsubsection{Aggregativo}
-	Il clustering agglomerativo è un algoritmo \textbf{greedy}, che prende diversi cluster contenenti ognuno un singolo elemento e ad ogni passo
-	determina i due cluster più simili. 
-	 each step, the two most similar clusters
-	are determined (81, and merged into a new cluster (9). The algorithm
-	terminates when one large cluster containing all objects of S has been
-	formed, which then is the only remaining cluster in C (7).
-	Let us flag one possibly confusing issue. We have phrased the clus-
-	tering algorithm in terms of similarity between clusters, and therefore
-	we join things with maximum similarity (8). Sometimes people think in
-	terms of distances between clusters, and then you want to join things that
-	are the minimum distance apart. So it is easy to get confused between
-	whether you re taking maximums or minimums. It is straightforward to
-	produce a similarity measure from a distance measure d, for example by
-	sim(x,y) = l/(1 + d(x,y)).
+	Questo tipo di clustering è realizzato tramite un algoritmo \textit{greedy} che prende in input un insieme di dati $S$, da cui ogni oggetto è considerato essere un piccolo cluster da un elemento.
+	Ad ogni passo l'algoritmo determina i due cluster più simili e li unisce in un nuovo cluster. L'algoritmo termina
+	quando il cluster contenente tutti gli elementi di $S$ viene formato, il quale sarà l'unico cluster rimanente.
+	I modi in cui si possono determinare la similarità dei cluster sono molteplici. L'algoritmo fa uso di una funzione di similarità per calcolare quanto dei cluster sono simili tra di loro.
+	Tipicamente le funzioni più utilizzate sono tre:
+	\begin{itemize}
+		\item single link: ottiene la similarità di due membri \textbf{più} simili da due cluster diversi, rispettivamente;
+		\item complete link: ottiene la similarità dei due membri \textbf{meno} simili da due cluster diversi, rispettivamente;
+		\item group-average: ottiene la similarità media tra i membri di due cluster.
+	\end{itemize}
 
 	\subsubsection{Divisivo}
-	\subsection{K-Means}
-	\subsection{EM}
+
+	\subsection{Partizionale}
+	\subsubsection{K-Means}
+	\subsubsection{EM}
     \section{Sessione Sperimentale}
     \section{Conclusioni}
     
