@@ -113,6 +113,24 @@
 	However, there are tasks for which top-down clustering is the more nat-
 	
 	\subsection{Partizionale}
+	Non-hierarchical algorithms often start out with a partition based on ran
+domly selected seeds (one seed per cluster), and then refine this initial
+partition. Most non-hierarchical algorithms employ several passes of ye-
+allocating objects to the currently best cluster whereas hierarchical algo-
+rithms need only one pass. However, reallocation of objects from one
+cluster to another can improve hierarchical clusterings too. We saw an
+example in section 14.1.3, where after each merge objects were moved
+around to improve global mutual information.
+If the non-hierarchical algorithm has multiple passes, then the ques-
+tion arises when to stop. This can be determined based on a measure
+of goodness or cluster quality. We have already seen candidates of such
+a measure, for example, group-average similarity and mutual informa-
+tion between adjacent clusters. Probably the most important stopping
+criterion is the likelihood of the data given the clustering model which
+we will introduce below. Whichever measure we choose, we simply con-
+tinue clustering as long as the measure of goodness improves enough in
+each iteration. We stop when the curve of improvement flattens or when
+goodness starts decreasing.
 
 
 	\subsubsection{K-Means}
