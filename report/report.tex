@@ -108,9 +108,13 @@
 	\subsubsection{Divisivo}
 	Come per la controparte aggregativa, dietro il clustering divisivo c'è un algoritmo greedy. Invece di iniziare dai singoli elementi, si inizia dal cluster contenente tutti gli oggetti. Ad ogni iterazione
 	si determina quale cluster è quello \textbf{meno} coerente e lo si divide in due. Come prima si utilizzano funzioni di similarità poichè due cluster con oggetti simili sono più coerenti
-	di cluster con oggetti non simili. Ad esempio, un cluster con molti oggetti identici hanno una coerenza massimale.
-
+	di cluster con oggetti non simili. Ad esempio, un cluster con molti oggetti identici ha una coerenza massimale. L'operazione di divisione di un cluster è anch'essa una operazione di clustering, poichè bisogna trovare
+	due sotto-cluster. Qualsiasi tecnica di clustering può essere usata per la divisione, anche il clustering aggregativo. Per queste ragione il clustering divisivo è solitamente meno usato.
+	However, there are tasks for which top-down clustering is the more nat-
+	
 	\subsection{Partizionale}
+
+
 	\subsubsection{K-Means}
 	\subsubsection{EM}
     \section{Sessione Sperimentale}
