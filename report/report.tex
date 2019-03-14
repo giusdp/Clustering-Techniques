@@ -10,6 +10,7 @@
 \usepackage[T1]{fontenc}
 
 %\usepackage{float}
+\usepackage{amssymb}
 
 \author{Giuseppe De Palma}
 
@@ -79,20 +80,35 @@
 	che sarà la radice dell'albero. Un altro approccio è quello \textit{top-down}, il clustering \textbf{divisivo}, che in modo inverso dal precedente parte 
 	dal gruppo comprendente tutti gli elementi e lo divide in sotto-gruppi in modo da massimizzare la similarità intrinseca dei gruppi, 
 	fino ad arrivare ai singoli elementi.
+	\acapo
+	Un utile grafico che si ottiene da questo tipo di clustering è il cosidetto dendrogramma. 
+	[\textbf{METTERE FIGURA DENDROGRAMMA E SPIEGARE}]
 
 	\subsubsection{Aggregativo}
 	Questo tipo di clustering è realizzato tramite un algoritmo \textit{greedy} che prende in input un insieme di dati $S$, da cui ogni oggetto è considerato essere un piccolo cluster da un elemento.
 	Ad ogni passo l'algoritmo determina i due cluster più simili e li unisce in un nuovo cluster. L'algoritmo termina
 	quando il cluster contenente tutti gli elementi di $S$ viene formato, il quale sarà l'unico cluster rimanente.
-	I modi in cui si possono determinare la similarità dei cluster sono molteplici. L'algoritmo fa uso di una funzione di similarità per calcolare quanto dei cluster sono simili tra di loro.
-	Tipicamente le funzioni più utilizzate sono tre:
+	I modi in cui si possono determinare la similarità dei cluster sono molteplici. L'algoritmo fa uso di una funzione di similarità per calcolare quanto dei cluster sono simili tra di loro, ce ne sono
+	diverse, ad esempio alcune molto utilizzate sono:
 	\begin{itemize}
 		\item single link: ottiene la similarità di due membri \textbf{più} simili da due cluster diversi, rispettivamente;
 		\item complete link: ottiene la similarità dei due membri \textbf{meno} simili da due cluster diversi, rispettivamente;
 		\item group-average: ottiene la similarità media tra i membri di due cluster.
 	\end{itemize}
+	Nonostante le funzioni di similarità possano differire anche ampiamente, una proprietà che tutte devono avere è la monotonia. Per un insieme di dati $S$ e una funzione di similarità $sim$:
+	\begin{center}
+		$\forall c, c', \hat{c} \subseteq S$. $min(sim(c, c’), sim(c, \hat{c})) \ge sim(c, c’ \cup \hat{c})$
+	\end{center}
+	Questo perché l'operazione di unione garantisce	di non aumentare la similarità, quindi una funzione che non obbedisce a questa condizione
+	rovinerebbe la gerarchia in quanto cluster non simili, piazzati in parti lontane nell'albero, potrebbero
+	ritrovarsi ad essere simili in unioni successive e perciò l'essere vicini nell'albero non corrisponderebbe più al concetto di similarità.
+	
+	[\textbf{CAPIRE QUALE FUNZIONE DI SIMILARITA USO E SCRIVERE}]
 
 	\subsubsection{Divisivo}
+	Come per la controparte aggregativa, dietro il clustering divisivo c'è un algoritmo greedy. Invece di iniziare dai singoli elementi, si inizia dal cluster contenente tutti gli oggetti. Ad ogni iterazione
+	si determina quale cluster è quello \textbf{meno} coerente e lo si divide in due. Come prima si utilizzano funzioni di similarità poichè due cluster con oggetti simili sono più coerenti
+	di cluster con oggetti non simili. Ad esempio, un cluster con molti oggetti identici hanno una coerenza massimale.
 
 	\subsection{Partizionale}
 	\subsubsection{K-Means}
