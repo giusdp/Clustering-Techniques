@@ -113,27 +113,32 @@
 	However, there are tasks for which top-down clustering is the more nat-
 	
 	\subsection{Partizionale}
-	Non-hierarchical algorithms often start out with a partition based on ran
-domly selected seeds (one seed per cluster), and then refine this initial
-partition. Most non-hierarchical algorithms employ several passes of ye-
-allocating objects to the currently best cluster whereas hierarchical algo-
-rithms need only one pass. However, reallocation of objects from one
-cluster to another can improve hierarchical clusterings too. We saw an
-example in section 14.1.3, where after each merge objects were moved
-around to improve global mutual information.
-If the non-hierarchical algorithm has multiple passes, then the ques-
-tion arises when to stop. This can be determined based on a measure
-of goodness or cluster quality. We have already seen candidates of such
-a measure, for example, group-average similarity and mutual informa-
-tion between adjacent clusters. Probably the most important stopping
-criterion is the likelihood of the data given the clustering model which
-we will introduce below. Whichever measure we choose, we simply con-
-tinue clustering as long as the measure of goodness improves enough in
-each iteration. We stop when the curve of improvement flattens or when
-goodness starts decreasing.
-
-
+	Diversamente dal clustering appena discusso, gli algoritmi per quello partizionale spesso
+	iniziano con una divisione casuale del dataset in vari cluster per poi raffinarli passo dopo passo attraverso 
+	la ricollocazione degli oggetti. Da questo procedimento varie domande sorgono. 
+	\begin{enumerate}
+		\item Quando fermarsi con la ricollocazione?
+		\item In quanti cluster dividere il dataset?
+		\item In che modo si seleziona il miglior cluster in cui ricollocare un elemento?
+	\end{enumerate} 
+	Quando fermarsi può essere determinato tramite una metrica sulla qualità dei cluster. Questa può essere una funzione 
+	di similarità come la group-average e finchè il risualto incrementa di molto si continua la procedura.
+	\acapo
+	La stessa metrica può essere utilizzata per rispondere alla seconda domanda. In alcuni casi possiamo già avere
+	delle informazioni sul corretto numero di cluster da creare, oppure decidiamo arbitrariamente in quanti cluster dividere il dataset.
+	In altri casi invece, possiamo dividere i dati in $k$ cluster osservando l'andamento della metrica.
+	Per capire un buon numero di cluster da avere bisogna vedere in quale transizione c'è un 
+	incremento sostanziale da $k-1$ a $k$ cluster e un piccolo incremento da $k$ a $k+1$ cluster.
+	Trovando un numero $k$ di cluster che abbia questa proprietà, possiamo avere in modo automatico una buona partizione del dataset.
+	\acapo
+	Per l'ultima questione, sono gli algoritmi per il clustering partizionale che si occupano di come ricollocare gli oggetti, che ora verranno 
+	presentati.
 	\subsubsection{K-Means}
+	K-means clustering is probably the simplest
+	clustering algorithm and, despite its limitations, it works sufficiently well
+	in many applications. The EM algorithm is a general template for a family
+	of algorithms.
+
 	\subsubsection{EM}
     \section{Sessione Sperimentale}
     \section{Conclusioni}
