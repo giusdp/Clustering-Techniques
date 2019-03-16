@@ -55,7 +55,7 @@
 	oggetti.
 	\acapo
 	Un'altra importante distinzione tra gli algoritmi di clustering è il \textit{soft clustering} e \textit{hard clustering}. Nel primo caso, ogni oggetto può essere assegnato a più cluster secondo un qualche
-	grado di appartenza, mentre nel secondo caso ogni oggetto è assegnato ad un unico cluster. In questo progetto vedremo quattro diversi algoritmi, due della classe di clustering gerarchico, due del clustering partizionale.
+	grado di appartenenza, mentre nel secondo caso ogni oggetto è assegnato ad un unico cluster. In questo progetto vedremo quattro diversi algoritmi, due della classe di clustering gerarchico, due del clustering partizionale.
 	I primi tre eseguono hard clustering mentre l'ultimo soft clustering.
 	\acapo
 	Di seguito sono elencati i metodi implementati e testati:
@@ -134,12 +134,18 @@
 	Per l'ultima questione, sono gli algoritmi per il clustering partizionale che si occupano di come ricollocare gli oggetti, che ora verranno 
 	presentati.
 	\subsubsection{K-Means}
-	K-means clustering is probably the simplest
-	clustering algorithm and, despite its limitations, it works sufficiently well
-	in many applications. The EM algorithm is a general template for a family
-	of algorithms.
+	K-Means è un algoritmo di hard clustering che definisce i cluster attraverso i loro punti centrali.
+	Partendo da dei centroidi iniziali, iterativamente si assegna ogni oggetto al cluster il cui centroide è
+	il più vicino, calcolato tramite la distanza euclidea. Una volta che tutti gli elementi sono stati assegnati, si ricalcolano i punti centrali di tutti
+	i cluster e si ripete il procedimento di assegnazione così da raffinare il clustering.
 
 	\subsubsection{EM}
+	L'algoritmo EM (Estimate-Maximize) è definibile come la versione di K-Means per il soft clustering.
+	La differenza principale di quest'altro approccio è il calcolo della probabilità di appartenere ad un cluster (la parte Estimate)
+	basato su una o più distribuzioni distribuzione di probabilità. Lo scopo dell'algoritmo, quindi, è quello di massimizzare
+	tali probabilità (la parte Maximize). In questo progetto vedremo l'algoritmo EM con \textit{Gaussian mixture model}.
+
+
     \section{Sessione Sperimentale}
     \section{Conclusioni}
     
