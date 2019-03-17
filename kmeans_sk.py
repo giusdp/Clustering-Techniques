@@ -2,11 +2,15 @@ import matplotlib.pyplot as pyplot
 from sklearn.cluster import KMeans
 
 
-def k_means_clustering(X):
+def k_means_clustering(X, k=None):
     pyplot.figure()
     pyplot.scatter(X[:, 0], X[:, 1], label='True Position')
 
-    kmeans = KMeans()
+    if k is None:
+        kmeans = KMeans()
+    else:
+        kmeans = KMeans(n_clusters=k)
+
     kmeans.fit_predict(X)
 
     pyplot.scatter(X[:, 0], X[:, 1], c=kmeans.labels_, cmap='rainbow')

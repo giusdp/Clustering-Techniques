@@ -90,7 +90,7 @@ def div_plot(X, clusters, k):
         ax.scatter(points[:, 0], points[:, 1], s=50, c=colors[color])
         color += 1
 
-    plt.show(block=False)
+    # plt.show(block=False)
 
 
 def transform_labels(y):

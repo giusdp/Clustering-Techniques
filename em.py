@@ -20,4 +20,3 @@ def em_clustering(X):
         density = scipy.stats.multivariate_normal(cov=gmm.covariances_[i], mean=gmm.means_[i]).logpdf(X)
         centers[i, :] = X[np.argmax(density)]
     pyplot.scatter(centers[:, 0], centers[:, 1], s=20)
-    pyplot.show()
