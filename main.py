@@ -10,23 +10,36 @@ a high number of points, using OpenGL accelerated series
 
 import sys
 
+import numpy
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import (QApplication, QVBoxLayout, QPushButton, QWidget, QLineEdit)
+from PyQt5.QtWidgets import (QApplication, QVBoxLayout, QPushButton, QWidget, QHBoxLayout, QLineEdit)
 from matplotlib import pyplot
-from pandas import DataFrame
+from pandas import DataFrame, read_csv
 from sklearn.datasets import make_blobs
 
 from bottom_up import bottom_up_clustering
-from em import em_clustering
-from hierarchical import div_func, div_plot
+from top_down import div_func, div_plot
 from kmeans_sk import k_means_clustering
 
 
 def create_blob_dataset(n_elems, n_groups):
     X, y = make_blobs(n_samples=n_elems, centers=n_groups, n_features=2)  # generate 2d dataset
     df = DataFrame(dict(x=X[:, 0], y=X[:, 1], label=y))
-    return X, df
 
+    with open('dataset.csv', 'w') as f:
+        df.to_csv(f)
+    return df
+
+def extract_X(dataframe):
+    dX = list(zip(dataframe.x, dataframe.y))
+    dX = list(map(list, dX))
+    ndx = numpy.array(dX)
+    return ndx
+
+def load_blob_dataset():
+    with open('dataset.csv', 'r') as f:
+        df = read_csv(f)
+    return df
 
 class Window(QWidget):
     def __init__(self, parent=None, *args, **kwargs):
@@ -40,6 +53,9 @@ class Window(QWidget):
         self.aggl_button.clicked.connect(self.run_aggl_clustering)
         self.aggl_button.setDisabled(True)
 
+        self.line_clusters = QLineEdit(self)
+        self.line_clusters.resize(32, 32)
+
         self.div_button = QPushButton('Divisive')
         self.div_button.clicked.connect(self.run_div_clustering)
         self.div_button.setDisabled(True)
@@ -52,13 +68,21 @@ class Window(QWidget):
         self.em_button.clicked.connect(self.run_em)
         self.em_button.setDisabled(True)
 
+        self.load_button = QPushButton('Load')
+        self.load_button.clicked.connect(self.load_data)
+
+        hbox = QHBoxLayout()
         vbox = QVBoxLayout()
 
         # self.textbox = QLineEdit(self)
         # self.textbox.resize(40, 40)
         # vbox.addWidget(self.textbox, alignment=Qt.AlignCenter)
 
-        vbox.addWidget(self.gen_data_button, alignment=Qt.AlignCenter)
+        hbox.addWidget(self.gen_data_button, alignment=Qt.AlignCenter)
+        hbox.addWidget(self.load_button, alignment=Qt.AlignCenter)
+        vbox.addLayout(hbox)
+
+        vbox.addWidget(self.line_clusters, alignment=Qt.AlignCenter)
         vbox.addWidget(self.aggl_button, alignment=Qt.AlignCenter)
         vbox.addWidget(self.div_button, alignment=Qt.AlignCenter)
         vbox.addWidget(self.kmeans_button, alignment=Qt.AlignCenter)
@@ -67,15 +91,15 @@ class Window(QWidget):
         self.setLayout(vbox)
 
     def gen_dataset(self):
-        self.current_dataset = create_blob_dataset(50, 3)
+        self.current_dataset = create_blob_dataset(1000, 10)
 
         # max 16 colors to identify clusters.
-        # So DO NOT set more than 16 clusters at a time. Otherwise error with colors[key] below
-        colors = ['r', 'g', 'b', 'y', 'c', 'm', 'w', 'k', 'orange', 'navy', 'cyan', 'crimson', 'teal', 'sienna',
+        # So DO NOT set more than 15 clusters at a time. Otherwise error with colors[key] below
+        colors = ['r', 'g', 'b', 'y', 'c', 'm', 'k', 'orange', 'navy', 'cyan', 'crimson', 'teal', 'sienna',
                   'khaki',
                   'fuchsia']
         _, axes = pyplot.subplots()
-        grouped = self.current_dataset[1].groupby('label')
+        grouped = self.current_dataset.groupby('label')
         pyplot.title("Created Clusters")
         for key, group in grouped:
             group.plot(ax=axes, kind='scatter', x='x', y='y', label=key, color=colors[key])
@@ -88,33 +112,54 @@ class Window(QWidget):
         self.kmeans_button.setDisabled(False)
         self.em_button.setDisabled(False)
 
+    def load_data(self):
+        self.aggl_button.setDisabled(False)
+        self.div_button.setDisabled(False)
+        self.kmeans_button.setDisabled(False)
+        self.em_button.setDisabled(False)
+        self.current_dataset = load_blob_dataset()
+
     def run_aggl_clustering(self):
-        bottom_up_clustering(self.current_dataset[1])
+        if not self.line_clusters.text():
+            print("Dai numero di clusters per agglomerative")
+            return
+
+        nc = int(self.line_clusters.text())
+
+        bottom_up_clustering(self.current_dataset, nc)
         pyplot.pause(0.001)
         pyplot.show()
 
     def run_div_clustering(self):
-        clusters = div_func(self.current_dataset[0])
-        print(len(clusters))
-        div_plot(self.current_dataset[0], clusters, 3)
+        if not self.line_clusters.text():
+            print("Dai numero di clusters per divisive")
+            return
+
+        nc = int(self.line_clusters.text())
+
+        X = extract_X(self.current_dataset)
+        clusters = div_func(X)
+        div_plot(X, clusters, nc)
+
+        pyplot.title("Hierarchical Top-Down Approach")
         pyplot.pause(0.001)
         pyplot.show()
 
     def run_k_means(self):
-        k_means_clustering(self.current_dataset[0])
+        k_means_clustering(self.current_dataset[0], 10)
         pyplot.pause(0.001)
         pyplot.show()
 
     def run_em(self):
-        em_clustering(self.current_dataset[0])
-        pyplot.pause(0.001)
-        pyplot.show()
-        # from gmm import GMM
-        # em = GMM(self.current_dataset[0], 3, 10)
-        # em.run()
-        # em.plot()
+        # em_clustering(self.current_dataset[0])
         # pyplot.pause(0.001)
         # pyplot.show()
+        from gmm import GMM
+        em = GMM(self.current_dataset[0], 10, 100)
+        em.run()
+        em.plot()
+        pyplot.pause(0.001)
+        pyplot.show()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

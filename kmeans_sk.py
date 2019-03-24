@@ -13,6 +13,7 @@ def k_means_clustering(X, k=None):
 
     kmeans.fit_predict(X)
 
+    pyplot.title("K-Means")
     pyplot.scatter(X[:, 0], X[:, 1], c=kmeans.labels_, cmap='rainbow')
     pyplot.scatter(kmeans.cluster_centers_[:, 0], kmeans.cluster_centers_[:, 1], color='black')  # Centroidi
 

@@ -169,9 +169,66 @@
 	Successivamente c'è il Maximization step, in cui si massimizzano i parametri delle distribuzioni e degli oggetti (pesi, covarianza, medie) così da poter ripetere il primo step. 
 	L'equivalente in K-Means è muovere i punti centrali dei cluster per poi procedere con un'altra riallocazione.
 
-
 	\section{Sessione Sperimentale}
-	In questa sezione verranno mostrati vari esperimenti per sottolineare le differenze tra i quattro metodi presentati.
-    \section{Conclusioni}
+	In questa sezione verranno mostrati vari esperimenti per sottolineare le differenze tra i quattro metodi presentati. Sono stati effettuati diversi test usando diversi dataset di vettori 2D, così da 
+	facilmente visualizzare i risultati con grafici. Per l'algoritmo di clustering agglomerativo è stato scelto di usare la funzione di similarità ``ward'', spiegata in precendeza. Per il clustering
+	divisivo viene usato K-Means per creare 2 cluster a partire da un cluster più grande, che è lo step di divisione. Per scegliere quale cluster dividere, sono state vagliate diverse possibilità:
+	
+	\begin{itemize}
+		\item Un approccio comune è quello di selezionare il cluster con la massima cardinalità. Questo dà priorità alla produzione di cluster bilanciati rispetto alle dimensioni;
+	
+		\item Un altro modo è calcolare il raggio di ogni cluster, il quale è la massima distanza tra i punti e il centroide. Quindi si seleziona il cluster con il raggio maggiore;
+			
+		\item Un altro approccio è calcolare il diametro di ogni cluster, il quale è la massima distanza tra ogni coppia di punti di un cluster.
+			Come prima, si va a scegliere il cluster che ha il diametro maggiore.
+	\end{itemize}
+	
+	Data la sua immediatezza, si è scelto di utilizzare il primo approccio.
+	\acapo
+	Vengono ora mostrati 2 test che rappresentano i diversi esperimenti eseguiti. Nella prima sessione sono stati creati diversi dataset (di cui se ne mostrano 2), dove il clustering 
+	agglomerativo e divisivo sono stati adoperati. In seguito con gli stessi dataset, i soggetti saranno i due metodi di clustering partizionale di cui abbiamo parlato. Infine sarà dato un quadro
+	generale delle differenze riscontrate.
+
+	\subsection{Agglomerativo vs Divisivo}
+	\subsection{K-Means vs EM}
+	\subsection{Risultati}
+
+	\section{Conclusioni}
+
+% 	Hierarchical clustering:
+% Preferable for detailed data analysis
+% Provides more information than
+% flat clustering
+% No single best algorithm (each of
+% the algorithms we describe has
+% been found to be optimal for
+% some application)
+% Less efficient than flat clustering
+% (for n objects, one minimally has
+% to compute an n x n matrix of
+% similarity coefficients, and then
+% update this matrix as one pro-
+% ceeds)
+% Table 14.1 A summary of the attributes
+% Non-hierarchical clustering:
+% Preferable if efficiency is a con-
+% sideration or data sets are very
+% large
+% K-means is the conceptually sim-
+% plest method and should proba-
+% bly be used first on a new data
+% set because its results are often
+% sufficient
+% K-means assumes a simple Eucli-
+% dean representation space, and
+% so cannot be used for many data
+% sets, for example, nominal data
+% like colors
+% In such cases, the EM algorithm
+% is the method of choice. It can ac-
+% commodate definition of clusters
+% and allocation of objects based
+% on complex probabilistic models.
+% of different clustering algorithms.
     
 \end{document}
