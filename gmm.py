@@ -88,9 +88,8 @@ class GMM:
             c += self.reg_cov
             multi_normal = multivariate_normal(mean=m, cov=c)
             ax.contour(np.sort(self.X[:, 0]), np.sort(self.X[:, 1]), multi_normal.pdf(self.XY).reshape(len(self.X), len(self.X)), colors=colors[i], alpha=0.3)
-            ax.scatter(m[0], m[1], c=colors[i], zorder=10, marker='*', s=300)
+            ax.scatter(m[0], m[1], c=colors[i], zorder=10, marker='+', s=300)
             i += 1
-        fig.title("EM - Gassian Mixture")
 
 
 

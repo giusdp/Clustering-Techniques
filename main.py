@@ -15,7 +15,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (QApplication, QVBoxLayout, QPushButton, QWidget, QHBoxLayout, QLineEdit)
 from matplotlib import pyplot
 from pandas import DataFrame, read_csv
-from sklearn.datasets import make_blobs
+from sklearn.datasets import make_blobs, make_circles
 
 from bottom_up import bottom_up_clustering
 from top_down import div_func, div_plot
@@ -23,7 +23,8 @@ from kmeans_sk import k_means_clustering
 
 
 def create_blob_dataset(n_elems, n_groups):
-    X, y = make_blobs(n_samples=n_elems, centers=n_groups, n_features=2)  # generate 2d dataset
+    #X, y = make_blobs(n_samples=n_elems, centers=n_groups, n_features=2)  # generate 2d dataset
+    X, y = make_circles(100)
     df = DataFrame(dict(x=X[:, 0], y=X[:, 1], label=y))
 
     with open('dataset.csv', 'w') as f:
@@ -146,7 +147,12 @@ class Window(QWidget):
         pyplot.show()
 
     def run_k_means(self):
-        k_means_clustering(self.current_dataset[0], 10)
+        if not self.line_clusters.text():
+            print("Dai numero di clusters per divisive")
+            return
+
+        nc = int(self.line_clusters.text())
+        k_means_clustering(extract_X(self.current_dataset), nc)
         pyplot.pause(0.001)
         pyplot.show()
 
@@ -155,9 +161,15 @@ class Window(QWidget):
         # pyplot.pause(0.001)
         # pyplot.show()
         from gmm import GMM
-        em = GMM(self.current_dataset[0], 10, 100)
+        if not self.line_clusters.text():
+            print("Dai numero di clusters per divisive")
+            return
+
+        nc = int(self.line_clusters.text())
+        em = GMM(extract_X(self.current_dataset), nc, 100)
         em.run()
         em.plot()
+        pyplot.title("EM - Gassian Mixture")
         pyplot.pause(0.001)
         pyplot.show()
 
