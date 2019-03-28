@@ -96,7 +96,7 @@
 		   	\label{fig:2}
 		\end{subfigure}
 		
-		\caption{(a) insieme di 50 punti pre-divisi in 3 gruppi distinti, su cui si applica il clustering agglomerativo con la funzione di 
+		\caption{(a) insieme di 50 punti pre-divisi in 3 gruppi distinti, su cui si applica il clustering aggregativo con la funzione di 
 		similarità ``ward''. Se ne ricava un dendogramma, in (b), che mostra le relazioni di quei dati. Si noti come tagliando orizzontalmente il cluster per le linee verticali più alte dove non appaiono linee orizzontali, rimangono proprio 3 sotto-cluster.}
 		\label{ex:dendrogram}
 	\end{figure}
@@ -171,7 +171,7 @@
 
 	\section{Sessione Sperimentale}
 	In questa sezione verranno mostrati vari esperimenti per sottolineare le differenze tra i quattro metodi presentati. Sono stati effettuati diversi test usando diversi dataset di vettori 2D, così da 
-	facilmente visualizzare i risultati con grafici. Per l'algoritmo di clustering agglomerativo è stato scelto di usare la funzione di similarità ``ward'', spiegata in precendeza. Per il clustering
+	facilmente visualizzare i risultati con grafici. Per l'algoritmo di clustering aggregativo è stato scelto di usare la funzione di similarità ``ward'', spiegata in precendeza. Per il clustering
 	divisivo viene usato K-Means per creare 2 cluster a partire da un cluster più grande, che è lo step di divisione. Per scegliere quale cluster dividere, sono state vagliate diverse possibilità:
 	
 	\begin{itemize}
@@ -186,11 +186,11 @@
 	Data la sua immediatezza, si è scelto di utilizzare il primo approccio.
 	\acapo
 	Vengono ora mostrati 2 test che rappresentano i diversi esperimenti eseguiti. Nella prima sessione sono stati creati diversi dataset (di cui se ne mostrano 2), dove il clustering 
-	agglomerativo e divisivo sono stati adoperati. In seguito i soggetti dei test saranno i due metodi di clustering partizionale di cui abbiamo parlato. Infine sarà dato un quadro
+	aggregativo e divisivo sono stati adoperati. In seguito i soggetti dei test saranno i due metodi di clustering partizionale di cui abbiamo parlato. Infine sarà dato un quadro
 	generale delle differenze riscontrate.
 	\clearpage
-	\subsection{Agglomerativo vs Divisivo}
-	Il primo dataset, mostrato in figura \ref{c:5_c}, contiene 1000 elementi distintamente raggruppati in 5 diverse zone, così che sarà ovvio quali cluster dovrebbero essere formati.
+	\subsection{Aggregativo vs Divisivo}
+	Il primo dataset, mostrato in figura \ref{c:5_c}, contiene 1000 elementi distintamente raggruppati con colori diversi in 5 diverse zone, così che sarà ovvio quali cluster dovrebbero essere formati.
 	\begin{figure}[h]
 		\centering
 		\includegraphics[width=\linewidth]{immagini/5_clusters.png}
@@ -198,6 +198,58 @@
 		\label{c:5_c}
 	\end{figure}
 
+	Una prima applicazione delle due tecniche è stata quella di lanciare le procedure prefissando il numero di cluster da ottenere. In figura \ref{hier_normal:test} e \ref{hier:test} sono mostrati alcuni risultati.
+	Per entrambe le tecniche, se richiesto di trovare esattamente il numero di cluster che il dataset prevede (in questo caso 5), allora vengono identificati correttamente i vari gruppi. 
+	Iniziano ad esserci	delle differenze anche sostanziali quando si vuole avere un numero minore o maggiore di cluster. Le figure \ref{hier:a} e \ref{hier:b} mostrano due istanze 
+	in cui si vogliono 3 cluster, si nota subito che dei 3 gruppi formati 2 differiscono. Con la tecnica aggregativa i cluster sono visibilmente corretti: i due cluster più grandi accomunano punti vicini,
+	mentre il terzo cluster sono i punti più distanziati. Con il divisivo invece, per come i cluster vengono selezionati per la divisione, 
+
+	\begin{figure}[h]
+		\begin{subfigure}{.5\textwidth}
+		  \centering
+		  \includegraphics[width=\linewidth]{immagini/5_clusters_agg.png}
+		  \caption{Aggregativo per i 5 cluster.}
+		  \label{hier_normal:a}
+		\end{subfigure}%
+		\begin{subfigure}{.5\textwidth}
+		  \centering
+		  \includegraphics[width=\linewidth]{immagini/5_clusters_div.png}
+		  \caption{Divisivo per i 5 cluster.}
+		  \label{hier_normal:b}
+		\end{subfigure}
+		\caption{plots of....}
+		\label{hier_normal:test}
+	\end{figure}
+	
+	\begin{figure}[h]
+		\begin{subfigure}{.5\textwidth}
+		  \centering
+		  \includegraphics[width=\linewidth]{immagini/5_clusters_3_agg.png}
+		  \caption{Aggregativo per 3 cluster.}
+		  \label{hier:a}
+		\end{subfigure}%
+		\begin{subfigure}{.5\textwidth}
+		  \centering
+		  \includegraphics[width=\linewidth]{immagini/5_clusters_3_div.png}
+		  \caption{Divisivo per 3 cluster.}
+		  \label{hier:b}
+		\end{subfigure}
+		\begin{subfigure}{.5\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{immagini/5_clusters_10_agg.png}
+			\caption{Aggregativo per 10 cluster.}
+			\label{hier:c}			
+		  \end{subfigure}
+		  \begin{subfigure}{.5\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{immagini/5_clusters_10_div.png}
+			\caption{Divisivo per 10 cluster.}
+			\label{hier:d}			
+		  \end{subfigure}
+		\caption{plots of....}
+		\label{hier:test}
+	\end{figure}
+	
 	\subsection{K-Means vs EM}
 	\subsection{Risultati}
 

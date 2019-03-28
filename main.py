@@ -23,8 +23,8 @@ from kmeans_sk import k_means_clustering
 
 
 def create_blob_dataset(n_elems, n_groups):
-    #X, y = make_blobs(n_samples=n_elems, centers=n_groups, n_features=2)  # generate 2d dataset
-    X, y = make_circles(100)
+    X, y = make_blobs(n_samples=n_elems, centers=n_groups, n_features=2)  # generate 2d dataset
+    #X, y = make_circles(100)
     df = DataFrame(dict(x=X[:, 0], y=X[:, 1], label=y))
 
     with open('dataset.csv', 'w') as f:
@@ -92,7 +92,12 @@ class Window(QWidget):
         self.setLayout(vbox)
 
     def gen_dataset(self):
-        self.current_dataset = create_blob_dataset(1000, 10)
+        if not self.line_clusters.text():
+            print("Dai numero di clusters per agglomerative")
+            return
+
+        nc = int(self.line_clusters.text())
+        self.current_dataset = create_blob_dataset(1000, 5)
 
         # max 16 colors to identify clusters.
         # So DO NOT set more than 15 clusters at a time. Otherwise error with colors[key] below
