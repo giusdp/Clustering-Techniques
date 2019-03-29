@@ -21,6 +21,9 @@ from bottom_up import bottom_up_clustering
 from top_down import div_func, div_plot
 from kmeans_sk import k_means_clustering
 
+X_data = 0
+y_data = 0
+
 def show_dataset(dataframe):
     # max 16 colors to identify clusters.
     # So DO NOT set more than 15 clusters at a time. Otherwise error with colors[key] below
@@ -38,6 +41,10 @@ def show_dataset(dataframe):
 
 def create_blob_dataset(n_elems, n_groups):
     X, y = make_blobs(n_samples=n_elems, centers=n_groups, n_features=2)  # generate 2d dataset
+    global X_data
+    X_data = X
+    global y_data
+    y_data = y
     #X, y = make_circles(100)
     df = DataFrame(dict(x=X[:, 0], y=X[:, 1], label=y))
 
@@ -123,7 +130,6 @@ class Window(QWidget):
     def load_data(self):
         self.current_dataset = load_blob_dataset()
         show_dataset(self.current_dataset)
-
         self.aggl_button.setDisabled(False)
         self.div_button.setDisabled(False)
         self.kmeans_button.setDisabled(False)
@@ -166,19 +172,17 @@ class Window(QWidget):
         pyplot.show()
 
     def run_em(self):
-        # em_clustering(self.current_dataset[0])
-        # pyplot.pause(0.001)
-        # pyplot.show()
-        from gmm import GMM
+        #from gmm import GMM
+        from em import em_clustering
         if not self.line_clusters.text():
             print("Dai numero di clusters per em")
             return
 
         nc = int(self.line_clusters.text())
-        em = GMM(extract_X(self.current_dataset), nc, 1)
-        em.run()
-        em.plot()
-        pyplot.title("EM - Gassian Mixture")
+        em_clustering(X_data, y_data, nc, 10)
+        # em.run()
+        # em.plot()
+        #pyplot.title("EM - Gassian Mixture")
         pyplot.pause(0.001)
         pyplot.show()
 

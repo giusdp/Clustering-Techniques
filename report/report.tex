@@ -54,7 +54,7 @@
 	\acapo
 	Un'altra importante distinzione tra gli algoritmi di clustering è il \textit{soft clustering} e \textit{hard clustering}. Nel primo caso, ogni oggetto può essere assegnato a più cluster secondo un qualche
 	grado di appartenenza, mentre nel secondo caso ogni oggetto è assegnato ad un unico cluster. In questo progetto vedremo quattro diversi algoritmi, due della classe di clustering gerarchico, due del clustering partizionale.
-	I primi tre eseguono hard clustering mentre l'ultimo soft clustering.
+	I primi tre eseguono hard clustering mentre l'ultimo (EM) soft clustering.
 	\acapo
 	Di seguito sono elencati i metodi implementati e testati:
 	\begin{itemize}
@@ -67,7 +67,7 @@
 		\item Clustering \textbf{partizionale}
 		\begin{enumerate}
 			\item K-Means
-			\item EM (soft clustering)
+			\item EM
 		\end{enumerate}
 	\end{itemize}
 	
@@ -258,10 +258,12 @@
 		\caption{Sempre con lo stesso dataset (dalla figura \ref{c:5_c}), sono qui mostrati i risultati del clustering gerarchico prefissando
 		l'identificazione di 3 cluster ((a) e (b)) e 10 cluster ((c) e (d)) invece di 5.}
 		\label{hier:test}
-	\end{figure}
-	\clearpage
-	
+	\end{figure}\\
+	Oltre queste differenze, anche il tempo richiesto di esecuzione è stato abbastanza diverso tra le due tecniche. Il clustering aggregativo è stato
+	decisamente più veloce nel completare i calcoli. Questo è chiaramente dovuto al non utilizzare una seconda tecnica di clustering per formare nuovi cluster, 
+	cosa che invece il clustering divisivo fa per dividere gli elementi.
 	\subsection{K-Means vs EM}
+	
 	\subsection{Risultati}
 
 	\section{Conclusioni}

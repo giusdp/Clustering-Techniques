@@ -40,15 +40,11 @@ def div_func(X):
 def div_plot(X, clusters, k):
     cluster = clusters[k - 1]
     labels = np.unique(cluster)
-    colors = ['r', 'g', 'b', 'y', 'c', 'm', 'k', 'orange', 'navy', 'cyan', 'crimson', 'teal', 'sienna', 'khaki',
-              'fuchsia']
-    color = 0
     fig, ax = plt.subplots()
 
     for i in labels:
         points = np.array([X[j] for j in range(len(X)) if cluster[j] == i])
-        ax.scatter(points[:, 0], points[:, 1], s=15, c=colors[color])
-        color += 1
+        ax.scatter(points[:, 0], points[:, 1], s=15, cmap='rainbow')
 
     # plt.show(block=False)
 
