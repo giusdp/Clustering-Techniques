@@ -47,7 +47,7 @@ def div_plot(X, clusters, k):
 
     for i in labels:
         points = np.array([X[j] for j in range(len(X)) if cluster[j] == i])
-        ax.scatter(points[:, 0], points[:, 1], s= 15, c=colors[color])
+        ax.scatter(points[:, 0], points[:, 1], s=15, c=colors[color])
         color += 1
 
     # plt.show(block=False)

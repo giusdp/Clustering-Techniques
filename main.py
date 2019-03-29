@@ -21,6 +21,20 @@ from bottom_up import bottom_up_clustering
 from top_down import div_func, div_plot
 from kmeans_sk import k_means_clustering
 
+def show_dataset(dataframe):
+    # max 16 colors to identify clusters.
+    # So DO NOT set more than 15 clusters at a time. Otherwise error with colors[key] below
+    colors = ['r', 'g', 'b', 'y', 'c', 'm', 'k', 'orange', 'navy', 'cyan', 'crimson', 'teal', 'sienna',
+              'khaki',
+              'fuchsia']
+    _, axes = pyplot.subplots()
+    grouped = dataframe.groupby('label')
+    pyplot.title("Created Clusters")
+    for key, group in grouped:
+        group.plot(ax=axes, kind='scatter', x='x', y='y', s=15, label=key, color=colors[key])
+
+    pyplot.pause(0.001)
+    pyplot.show()
 
 def create_blob_dataset(n_elems, n_groups):
     X, y = make_blobs(n_samples=n_elems, centers=n_groups, n_features=2)  # generate 2d dataset
@@ -93,25 +107,13 @@ class Window(QWidget):
 
     def gen_dataset(self):
         if not self.line_clusters.text():
-            print("Dai numero di clusters per agglomerative")
+            print("Dai numero di clusters")
             return
 
         nc = int(self.line_clusters.text())
-        self.current_dataset = create_blob_dataset(1000, 5)
+        self.current_dataset = create_blob_dataset(1000, nc)
 
-        # max 16 colors to identify clusters.
-        # So DO NOT set more than 15 clusters at a time. Otherwise error with colors[key] below
-        colors = ['r', 'g', 'b', 'y', 'c', 'm', 'k', 'orange', 'navy', 'cyan', 'crimson', 'teal', 'sienna',
-                  'khaki',
-                  'fuchsia']
-        _, axes = pyplot.subplots()
-        grouped = self.current_dataset.groupby('label')
-        pyplot.title("Created Clusters")
-        for key, group in grouped:
-            group.plot(ax=axes, kind='scatter', x='x', y='y', label=key, color=colors[key])
-
-        pyplot.pause(0.001)
-        pyplot.show()
+        show_dataset(self.current_dataset)
 
         self.aggl_button.setDisabled(False)
         self.div_button.setDisabled(False)
@@ -119,11 +121,13 @@ class Window(QWidget):
         self.em_button.setDisabled(False)
 
     def load_data(self):
+        self.current_dataset = load_blob_dataset()
+        show_dataset(self.current_dataset)
+
         self.aggl_button.setDisabled(False)
         self.div_button.setDisabled(False)
         self.kmeans_button.setDisabled(False)
         self.em_button.setDisabled(False)
-        self.current_dataset = load_blob_dataset()
 
     def run_aggl_clustering(self):
         if not self.line_clusters.text():
@@ -132,7 +136,7 @@ class Window(QWidget):
 
         nc = int(self.line_clusters.text())
 
-        bottom_up_clustering(self.current_dataset, nc)
+        bottom_up_clustering(extract_X(self.current_dataset), nc)
         pyplot.pause(0.001)
         pyplot.show()
 
@@ -153,7 +157,7 @@ class Window(QWidget):
 
     def run_k_means(self):
         if not self.line_clusters.text():
-            print("Dai numero di clusters per divisive")
+            print("Dai numero di clusters per kmeans")
             return
 
         nc = int(self.line_clusters.text())
@@ -167,11 +171,11 @@ class Window(QWidget):
         # pyplot.show()
         from gmm import GMM
         if not self.line_clusters.text():
-            print("Dai numero di clusters per divisive")
+            print("Dai numero di clusters per em")
             return
 
         nc = int(self.line_clusters.text())
-        em = GMM(extract_X(self.current_dataset), nc, 100)
+        em = GMM(extract_X(self.current_dataset), nc, 1)
         em.run()
         em.plot()
         pyplot.title("EM - Gassian Mixture")

@@ -185,70 +185,81 @@
 	
 	Data la sua immediatezza, si è scelto di utilizzare il primo approccio.
 	\acapo
-	Vengono ora mostrati 2 test che rappresentano i diversi esperimenti eseguiti. Nella prima sessione sono stati creati diversi dataset (di cui se ne mostrano 2), dove il clustering 
+	Vengono ora mostrati dei test che rappresentano i diversi esperimenti eseguiti. Nella prima sessione sono stati creati diversi dataset (di cui se ne mostrano 2), dove il clustering 
 	aggregativo e divisivo sono stati adoperati. In seguito i soggetti dei test saranno i due metodi di clustering partizionale di cui abbiamo parlato. Infine sarà dato un quadro
 	generale delle differenze riscontrate.
+	
 	\clearpage
 	\subsection{Aggregativo vs Divisivo}
 	Il primo dataset, mostrato in figura \ref{c:5_c}, contiene 1000 elementi distintamente raggruppati con colori diversi in 5 diverse zone, così che sarà ovvio quali cluster dovrebbero essere formati.
 	\begin{figure}[h]
 		\centering
-		\includegraphics[width=\linewidth]{immagini/5_clusters.png}
+		\includegraphics[scale=.35]{immagini/5_clusters.png}
 		\caption{Dataset di 1000 elementi raggruppati in 5 diverse zone, etichettati con colori diversi. Questi saranno i cluster che le varie tecniche formeranno.}
 		\label{c:5_c}
-	\end{figure}
-
-	Una prima applicazione delle due tecniche è stata quella di lanciare le procedure prefissando il numero di cluster da ottenere. In figura \ref{hier_normal:test} e \ref{hier:test} sono mostrati alcuni risultati.
-	Per entrambe le tecniche, se richiesto di trovare esattamente il numero di cluster che il dataset prevede (in questo caso 5), allora vengono identificati correttamente i vari gruppi. 
-	Iniziano ad esserci	delle differenze anche sostanziali quando si vuole avere un numero minore o maggiore di cluster. Le figure \ref{hier:a} e \ref{hier:b} mostrano due istanze 
-	in cui si vogliono 3 cluster, si nota subito che dei 3 gruppi formati 2 differiscono. Con la tecnica aggregativa i cluster sono visibilmente corretti: i due cluster più grandi accomunano punti vicini,
-	mentre il terzo cluster sono i punti più distanziati. Con il divisivo invece, per come i cluster vengono selezionati per la divisione, 
-
+	\end{figure}\\
+	Una prima applicazione delle due tecniche è stata quella di lanciare le procedure prefissando il numero di cluster da ottenere. 
+	In figura \ref{hier_normal:test} e \ref{hier:test} sono mostrati alcuni risultati.
+	Per entrambe le tecniche, se richiesto di trovare esattamente il numero di cluster che il dataset prevede (in questo caso 5),
+	allora vengono identificati in modo molto simile i vari gruppi. La tecnica aggregativa è magari poco più precisa per quegli elementi ai confini tra due diversi cluster. 
 	\begin{figure}[h]
-		\begin{subfigure}{.5\textwidth}
+		\centering
+		\begin{subfigure}{.45\textwidth}
 		  \centering
 		  \includegraphics[width=\linewidth]{immagini/5_clusters_agg.png}
 		  \caption{Aggregativo per i 5 cluster.}
 		  \label{hier_normal:a}
 		\end{subfigure}%
-		\begin{subfigure}{.5\textwidth}
+		\begin{subfigure}{.45\textwidth}
 		  \centering
 		  \includegraphics[width=\linewidth]{immagini/5_clusters_div.png}
 		  \caption{Divisivo per i 5 cluster.}
 		  \label{hier_normal:b}
 		\end{subfigure}
-		\caption{plots of....}
+		\caption{I risultati delle due tecniche per il clustering gerarchico sul dataset mostrato in figura \ref{c:5_c}.
+		La formazione dei cluster è molto simile per entrambi gli algoritmi, i gruppi principali identificati sono gli stessi.
+		Piccole differenze per gli elementi molto vicini a 2 o più cluster.}
 		\label{hier_normal:test}
 	\end{figure}
-	
+	\\
+	Invece iniziano ad esserci delle differenze anche sostanziali quando si vuole avere un numero minore o maggiore di cluster.
+	Le figure \ref{hier:a} e \ref{hier:b} mostrano due istanze in cui si vogliono 3 cluster, in questo caso i cluster trovati sono tutti e 3 diversi.
+	Spesso pochi, separati, cluster possono risultare diversi, ma a seconda dell'approccio utilizzato per la scelta del cluster da dividere, 
+	i risultati possono differire molto da ciò che si ottiene con la tecnica aggregativa.
+	\acapo
+	Si è poi raddoppiato il numero di cluster voluto, da 5 a 10, i cui risultati sono mostrati in \ref{hier:c} e \ref{hier:d}.
+	Entrambe le tecniche hanno seguito la strada di dividere in due ciascuna delle 5 zone dove sono raggruppati gli elementi, per ottenere 10 cluster,
+	qui si riesce a notare bene come il clustering divisivo faccia dei tagli decisamente più netti per dividere i gruppi.
 	\begin{figure}[h]
 		\begin{subfigure}{.5\textwidth}
 		  \centering
-		  \includegraphics[width=\linewidth]{immagini/5_clusters_3_agg.png}
+		  \includegraphics[width=\linewidth]{immagini/5_clusters_agg_3.png}
 		  \caption{Aggregativo per 3 cluster.}
 		  \label{hier:a}
 		\end{subfigure}%
 		\begin{subfigure}{.5\textwidth}
 		  \centering
-		  \includegraphics[width=\linewidth]{immagini/5_clusters_3_div.png}
+		  \includegraphics[width=\linewidth]{immagini/5_clusters_div_3.png}
 		  \caption{Divisivo per 3 cluster.}
 		  \label{hier:b}
 		\end{subfigure}
 		\begin{subfigure}{.5\textwidth}
 			\centering
-			\includegraphics[width=\linewidth]{immagini/5_clusters_10_agg.png}
+			\includegraphics[width=\linewidth]{immagini/5_clusters_agg_10.png}
 			\caption{Aggregativo per 10 cluster.}
 			\label{hier:c}			
 		  \end{subfigure}
 		  \begin{subfigure}{.5\textwidth}
 			\centering
-			\includegraphics[width=\linewidth]{immagini/5_clusters_10_div.png}
+			\includegraphics[width=\linewidth]{immagini/5_clusters_div_10.png}
 			\caption{Divisivo per 10 cluster.}
 			\label{hier:d}			
 		  \end{subfigure}
-		\caption{plots of....}
+		\caption{Sempre con lo stesso dataset (dalla figura \ref{c:5_c}), sono qui mostrati i risultati del clustering gerarchico prefissando
+		l'identificazione di 3 cluster ((a) e (b)) e 10 cluster ((c) e (d)) invece di 5.}
 		\label{hier:test}
 	\end{figure}
+	\clearpage
 	
 	\subsection{K-Means vs EM}
 	\subsection{Risultati}

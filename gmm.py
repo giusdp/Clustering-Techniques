@@ -81,14 +81,14 @@ class GMM:
 
         for i in range(self.k):
             points = np.array([self.X[j] for j in range(len(self.X)) if np.argmax(self.predict(self.X[j])) == i])
-            ax.scatter(points[:, 0], points[:, 1], s=50, c=colors[i])
+            ax.scatter(points[:, 0], points[:, 1], s=15, c=colors[i])
 
         i = 0
         for m, c in zip(self.mu, self.cov):
             c += self.reg_cov
             multi_normal = multivariate_normal(mean=m, cov=c)
             ax.contour(np.sort(self.X[:, 0]), np.sort(self.X[:, 1]), multi_normal.pdf(self.XY).reshape(len(self.X), len(self.X)), colors=colors[i], alpha=0.3)
-            ax.scatter(m[0], m[1], c=colors[i], zorder=10, marker='+', s=300)
+            ax.scatter(m[0], m[1], c=colors[i], zorder=10, marker='+', s=15)
             i += 1
 
 
