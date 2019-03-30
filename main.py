@@ -40,12 +40,12 @@ def show_dataset(dataframe):
     pyplot.show()
 
 def create_blob_dataset(n_elems, n_groups):
-    X, y = make_blobs(n_samples=n_elems, centers=n_groups, n_features=2)  # generate 2d dataset
+    #X, y = make_blobs(n_samples=n_elems, centers=n_groups, n_features=2)  # generate 2d dataset
+    X, y = make_circles(500, shuffle=True)
     global X_data
     X_data = X
     global y_data
     y_data = y
-    #X, y = make_circles(100)
     df = DataFrame(dict(x=X[:, 0], y=X[:, 1], label=y))
 
     with open('dataset.csv', 'w') as f:

@@ -66,7 +66,7 @@
 
 		\item Clustering \textbf{partizionale}
 		\begin{enumerate}
-			\item K-Means
+			\item K-means
 			\item EM
 		\end{enumerate}
 	\end{itemize}
@@ -155,24 +155,24 @@
 	\acapo
 	Per l'ultima questione, sono gli algoritmi per il clustering partizionale che si occupano di come ricollocare gli oggetti, che ora verranno 
 	presentati.
-	\subsubsection{K-Means}
-	K-Means è un algoritmo di hard clustering che definisce i cluster attraverso i loro punti centrali.
+	\subsubsection{K-means}
+	K-means è un algoritmo di hard clustering che definisce i cluster attraverso i loro punti centrali.
 	Partendo da dei centroidi iniziali, iterativamente si assegna ogni oggetto al cluster il cui centroide è
 	il più vicino, calcolato tramite la distanza euclidea. Una volta che tutti gli elementi sono stati assegnati, si ricalcolano i punti centrali di tutti
 	i cluster e si ripete il procedimento di assegnazione così da raffinare il clustering.
 
 	\subsubsection{EM}
-	L'algoritmo EM (Expectation-Maximization) è definibile come la versione di K-Means per il soft clustering.
+	L'algoritmo EM (Expectation-Maximization) è definibile come la versione di K-means per il soft clustering.
 	In quest'algoritmo possiamo vedere ogni cluster come una distribuzione di probabilità (in questo progetto vedremo l'algoritmo EM con \textit{Gaussian mixture model}).
 	L'idea è quindi di alternare due step: l'Expectation step dove accade il calcolo delle probabilità per ogni oggetto di essere stato generato da ognuna delle distribuzioni 
-	(in K-Means questo è analogo ad assegnare ogni punto ad un cluster). 
+	(in K-means questo è analogo ad assegnare ogni punto ad un cluster). 
 	Successivamente c'è il Maximization step, in cui si massimizzano i parametri delle distribuzioni e degli oggetti (pesi, covarianza, medie) così da poter ripetere il primo step. 
-	L'equivalente in K-Means è muovere i punti centrali dei cluster per poi procedere con un'altra riallocazione.
+	L'equivalente in K-means è muovere i punti centrali dei cluster per poi procedere con un'altra riallocazione.
 
 	\section{Sessione Sperimentale}
 	In questa sezione verranno mostrati vari esperimenti per sottolineare le differenze tra i quattro metodi presentati. Sono stati effettuati diversi test usando diversi dataset di vettori 2D, così da 
 	facilmente visualizzare i risultati con grafici. Per l'algoritmo di clustering aggregativo è stato scelto di usare la funzione di similarità ``ward'', spiegata in precendeza. Per il clustering
-	divisivo viene usato K-Means per creare 2 cluster a partire da un cluster più grande, che è lo step di divisione. Per scegliere quale cluster dividere, sono state vagliate diverse possibilità:
+	divisivo viene usato K-means per creare 2 cluster a partire da un cluster più grande, che è lo step di divisione. Per scegliere quale cluster dividere, sono state vagliate diverse possibilità:
 	
 	\begin{itemize}
 		\item Un approccio comune è quello di selezionare il cluster con la massima cardinalità. Questo dà priorità alla produzione di cluster bilanciati rispetto alle dimensioni;
@@ -190,7 +190,7 @@
 	generale delle differenze riscontrate.
 	
 	\clearpage
-	\subsection{Aggregativo vs Divisivo}
+	\subsection{Aggregativo e Divisivo}
 	Il primo dataset, mostrato in figura \ref{c:5_c}, contiene 1000 elementi distintamente raggruppati con colori diversi in 5 diverse zone, così che sarà ovvio quali cluster dovrebbero essere formati.
 	\begin{figure}[h]
 		\centering
@@ -262,46 +262,78 @@
 	Oltre queste differenze, anche il tempo richiesto di esecuzione è stato abbastanza diverso tra le due tecniche. Il clustering aggregativo è stato
 	decisamente più veloce nel completare i calcoli. Questo è chiaramente dovuto al non utilizzare una seconda tecnica di clustering per formare nuovi cluster, 
 	cosa che invece il clustering divisivo fa per dividere gli elementi.
-	\subsection{K-Means vs EM}
-	
-	\subsection{Risultati}
+
+	\subsection{K-means ed EM}
+	Una prima differenza sostanziale di K-means, anche con le tecniche precedenti, è la velocità di esecuzione. In tutti i test il calcolo dei cluster è stato immediato.
+	Decisamente un vantaggio non da poco. 
+	\acapo
+	In figura \ref{part_norm:test} vengono mostrati i due algoritmi applicato al dataset precedente. K-means non solo è stato piuttosto veloce, ma ha formato gli stessi 5 cluster descritti dal dataset.
+	Em invece, essendo un algoritmo di soft clustering, mostra come gli elementi rientrino in più di un cluster. Gli elementi in giallo appartengono ad un unico cluster, essendo essi ben separati dagli altri. 
+	Per il resto invece, essendo tra loro più vicini, non c'è una divisione più ovvia. Anzi, molti elementi fanno parte di due o più cluster con probabilità molto simili. 
+	Ad esempio, i punti rossi che sono molto vicini ai punti blu hanno una probabilità molto alta sia per il cluster blu che per il rosso, ma di poco sono stati classificati come rossi.
+	\begin{figure}[h]
+		\centering
+		\begin{subfigure}{.45\textwidth}
+		  \centering
+		  \includegraphics[width=\linewidth]{immagini/5_clusters_kmeans.png}
+		  \caption{K-means per i 5 cluster.}
+		  \label{part_norm:a}
+		\end{subfigure}%
+		\begin{subfigure}{.45\textwidth}
+		  \centering
+		  \includegraphics[width=\linewidth]{immagini/5_clusters_gmm.png}
+		  \caption{EM per i 5 cluster.}
+		  \label{part_norm:b}
+		\end{subfigure}
+		\caption{I risultati delle due tecniche per il clustering partizionale sul dataset mostrato in figura \ref{c:5_c}.
+		In (a) K-means riesce a partizionare gli elementi esattamente come nel dataset originale, i punti neri sono i centroidi. In (b) EM invece forma 1 cluster ben definito (colore giallo), mentre con gli altri 4 c'è un
+		netto soft clustering alcuni elementi fanno parte perfino di 3 cluster diversi.}
+		\label{part_norm:test}
+	\end{figure}
+	\\
+	Anche per queste due tecniche si è voluto testare l'identificazione prima di 3 cluster, poi di 10. In \ref{part:a} K-means trova 3 ottimi cluster, di nuovo diversi da quelli trovati dalle tecniche gerarchiche.
+	Uno è chiaramente ben separato dagli altri, mentre gli altri due sono ognuno due gruppi vicini tra di loro. Questo è probabilmente il miglior modo per suddividere quel dataset in 3 cluster. 
+	Invece in \ref{part:b} EM suddivide il dataset in modo ulteriormente diverso, però i 4 gruppi a destra in realtà condividono l'appartenenza in 2 cluster.
+	\begin{figure}[h]
+		\begin{subfigure}{.5\textwidth}
+		  \centering
+		  \includegraphics[width=\linewidth]{immagini/5_clusters_kmeans_3.png}
+		  \caption{K-means per 3 cluster.}
+		  \label{part:a}
+		\end{subfigure}%
+		\begin{subfigure}{.5\textwidth}
+		  \centering
+		  \includegraphics[width=\linewidth]{immagini/5_clusters_gmm_3.png}
+		  \caption{EM per 3 cluster.}
+		  \label{part:b}
+		\end{subfigure}
+		\begin{subfigure}{.5\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{immagini/5_clusters_kmeans_10.png}
+			\caption{K-means per 10 cluster.}
+			\label{part:c}			
+		  \end{subfigure}
+		  \begin{subfigure}{.5\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{immagini/5_clusters_gmm_10.png}
+			\caption{EM per 10 cluster.}
+			\label{part:d}			
+		  \end{subfigure}
+		\caption{I Risultati del clustering partizionale prefissando
+		l'identificazione di 3 cluster ((a) e (b)) e 10 cluster ((c) e (d)).}
+		\label{part:test}
+	\end{figure}
+	Per il caso dei 10 cluster da creare, si nota come in \ref{part:c} c'è una divisione abbastanza netta come nel caso del clustering divisivo il che è prevedibile in quando la tecnica divisiva 
+	implementata utilizza K-means. Da EM, invece, non traspare una chiara struttura dei cluster quando se ne richiede un alto numero, sopratutto se gli elementi sono ben distinti in un numero inferiore di gruppi.
+	Questo ci dice che, ignorando per il momento i tempi di esecuzione più lunghi, in una applicazione concreta questa tecnica va usata più che altro quando c'è un reale bisogno di fare soft clustering
+	con un numero appropriato di cluster da identificare.  
 
 	\section{Conclusioni}
+	Tenendo conto sia del funzionamento degli algoritmi sia di questi ed altri test, si è notato che il clustering gerarchico può essere più adatto per analisi più dettagliate, come quando c'è un
+	bisogno di informazioni maggiori sulle relazioni tra gli elementi. L'approccio aggregativo è più facile da implementare di quello divisivo, ma entrambi hanno i propri casi d'uso. Sono però meno
+	efficienti del clustering partizionale, dove K-means è il migliore. Per questo motivo quando c'è un reale bisogno di efficienza, senza dubbio il clustering partizionale è da scegliere. Inoltre,
+	K-means è anche l'algoritmo concettualmente più semplice. Se i suoi risultati sono già sufficienti allora è un'ottima scelta. Infine EM ha i suoi casi d'uso, ad esempio quando è utile
+	fare soft clustering oppure bisogna usare modelli probabilistici anche complessi, anche con dataset sofisticati e non necessariamente rappresentati in spazi euclidei 
+	(cosa richiesta da K-means).
 
-% 	Hierarchical clustering:
-% Preferable for detailed data analysis
-% Provides more information than
-% flat clustering
-% No single best algorithm (each of
-% the algorithms we describe has
-% been found to be optimal for
-% some application)
-% Less efficient than flat clustering
-% (for n objects, one minimally has
-% to compute an n x n matrix of
-% similarity coefficients, and then
-% update this matrix as one pro-
-% ceeds)
-% Table 14.1 A summary of the attributes
-% Non-hierarchical clustering:
-% Preferable if efficiency is a con-
-% sideration or data sets are very
-% large
-% K-means is the conceptually sim-
-% plest method and should proba-
-% bly be used first on a new data
-% set because its results are often
-% sufficient
-% K-means assumes a simple Eucli-
-% dean representation space, and
-% so cannot be used for many data
-% sets, for example, nominal data
-% like colors
-% In such cases, the EM algorithm
-% is the method of choice. It can ac-
-% commodate definition of clusters
-% and allocation of objects based
-% on complex probabilistic models.
-% of different clustering algorithms.
-    
 \end{document}
