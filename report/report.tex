@@ -111,7 +111,7 @@
 		\item \textit{single link}: ottiene la similarità di due membri \textbf{più} simili da due cluster diversi, rispettivamente;
 		\item \textit{complete link}: ottiene la similarità dei due membri \textbf{meno} simili da due cluster diversi, rispettivamente;
 		\item \textit{group-average}: ottiene la similarità media tra i membri di due cluster.
-		\item \textit{ward}: \textbf{SPIEGARE}
+		\item \textit{ward}: ottiene la similarità in base al costo di unione di due cluster. Questo costo è ottenuto calcolando la somma dei prodotti tra gli elementi di due cluster e i centroidi. 
 	\end{itemize}
 	Nonostante le funzioni di similarità possano differire anche ampiamente, una proprietà che tutte devono avere è la monotonia. Per un insieme di dati $S$ e una funzione di similarità $sim$:
 	\begin{center}
