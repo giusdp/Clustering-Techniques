@@ -111,7 +111,7 @@
 		\item \textit{single link}: ottiene la similarità di due membri \textbf{più} simili da due cluster diversi, rispettivamente;
 		\item \textit{complete link}: ottiene la similarità dei due membri \textbf{meno} simili da due cluster diversi, rispettivamente;
 		\item \textit{group-average}: ottiene la similarità media tra i membri di due cluster.
-		\item \textit{ward}: ottiene la similarità in base al costo di unione di due cluster. Questo costo è ottenuto calcolando la somma dei prodotti tra gli elementi di due cluster e i centroidi. 
+		\item \textit{ward}: ottiene la similarità in base al costo di unione di due cluster. Questo costo è ottenuto calcolando la somma dei prodotti tra gli elementi di due cluster e i loro centroidi. 
 	\end{itemize}
 	Nonostante le funzioni di similarità possano differire anche ampiamente, una proprietà che tutte devono avere è la monotonia. Per un insieme di dati $S$ e una funzione di similarità $sim$:
 	\begin{center}
@@ -253,7 +253,8 @@
 		\caption{Sempre con lo stesso dataset (dalla figura \ref{c:5_c}), sono qui mostrati i risultati del clustering gerarchico prefissando
 		l'identificazione di 3 cluster, (a) e (b), e 10 cluster, (c) e (d), invece di 5.}
 		\label{hier:test}
-	\end{figure}\\
+	\end{figure}
+	\clearpage
 	Oltre queste differenze, anche il tempo richiesto di esecuzione è stato abbastanza diverso tra le due tecniche. Il clustering aggregativo è stato
 	decisamente più veloce nel completare i calcoli. Questo è chiaramente dovuto al non utilizzare una seconda tecnica di clustering per formare nuovi cluster, 
 	cosa che invece il clustering divisivo fa per dividere gli elementi.
@@ -331,4 +332,20 @@
 	fare soft clustering oppure bisogna usare modelli probabilistici anche complessi, anche con dataset sofisticati e non necessariamente rappresentati in spazi euclidei 
 	(cosa richiesta da K-means).
 
+
+
+\begin{thebibliography}{9}
+	\bibitem{manning} 
+	Christopher D. Manning, Hinrich Scht{\"u}ze
+
+	\textit{Foundations of Statistical Natural Language Processing}. 
+	The MIT Press Cambridge, Massachusetts 1999.
+	
+	\bibitem{clmerg} 
+	Chris Ding, Xiaofeng He
+	\textit{Cluster merging and splitting in hierarchical clustering algorithms}.
+	University of California, Berkeley,
+\end{thebibliography}
+	
+	
 \end{document}
